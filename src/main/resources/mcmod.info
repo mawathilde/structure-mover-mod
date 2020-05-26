@@ -1,0 +1,16 @@
+[
+{
+  "modid": "sm",
+  "name": "Structure Mover",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Mawathilde"],
+  "credits": "Developer: Mawathilde",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
