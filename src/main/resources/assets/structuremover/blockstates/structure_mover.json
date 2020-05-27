@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "structuremover:structure_mover"
+    }
+  }
+}

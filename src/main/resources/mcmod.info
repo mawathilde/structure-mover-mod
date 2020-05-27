@@ -1,6 +1,6 @@
 [
 {
-  "modid": "sm",
+  "modid": "structuremover",
   "name": "Structure Mover",
   "description": "",
   "version": "${version}",
