@@ -51,12 +51,12 @@ public class EntityMovingBlock extends Entity {
         this.ticks = Math.max(ticks, 1);
     }
 
-    public void setTarget(BlockPos target) {
-        this.target = target;
-    }
-
     public BlockPos getTarget() {
         return target;
+    }
+
+    public void setTarget(BlockPos target) {
+        this.target = target;
     }
 
     public BlockPos getSource() {
@@ -71,12 +71,12 @@ public class EntityMovingBlock extends Entity {
         return dataManager.get(BLOCK);
     }
 
-    public IBlockState getBlockValue() {
-        return dataManager.get(BLOCK).or(Blocks.STONE.getDefaultState());
-    }
-
     public void setBlock(IBlockState state) {
         dataManager.set(BLOCK, Optional.of(state));
+    }
+
+    public IBlockState getBlockValue() {
+        return dataManager.get(BLOCK).or(Blocks.STONE.getDefaultState());
     }
 
     @Override
@@ -87,7 +87,7 @@ public class EntityMovingBlock extends Entity {
     @Override
     protected void readEntityFromNBT(NBTTagCompound nbt) {
         Block block = Block.getBlockFromName(nbt.getString("Block"));
-        if(block == null) block = Blocks.STONE;
+        if (block == null) block = Blocks.STONE;
         setBlock(block.getStateFromMeta(nbt.getInteger("Meta")));
         setSource(NBTUtil.getPosFromTag(nbt.getCompoundTag("SourcePos")));
         setTarget(NBTUtil.getPosFromTag(nbt.getCompoundTag("TargetPos")));
@@ -97,7 +97,7 @@ public class EntityMovingBlock extends Entity {
     @Override
     protected void writeEntityToNBT(NBTTagCompound nbt) {
         final IBlockState state = getBlock().or(Blocks.STONE.getDefaultState());
-        if(state.getBlock().getRegistryName() == null) return;
+        if (state.getBlock().getRegistryName() == null) return;
         nbt.setString("Block", state.getBlock().getRegistryName().toString());
         nbt.setInteger("Meta", state.getBlock().getMetaFromState(state));
         nbt.setTag("SourcePos", NBTUtil.createPosTag(source));
@@ -107,24 +107,24 @@ public class EntityMovingBlock extends Entity {
 
     @Override
     public void onUpdate() {
-        if(!world.isRemote && isEntityAlive()){
-            if(targetDistance == null){
-                targetDistance = new Vec3i(target.getX()-source.getX(), target.getY()-source.getY(), target.getZ()-source.getZ());
+        if (!world.isRemote && isEntityAlive()) {
+            if (targetDistance == null) {
+                targetDistance = new Vec3i(target.getX() - source.getX(), target.getY() - source.getY(), target.getZ() - source.getZ());
             }
-            if(verifyValue(distance.x, targetDistance.getX()) && verifyValue(distance.y, targetDistance.getY()) && verifyValue(distance.z, targetDistance.getZ())){
+            if (verifyValue(distance.x, targetDistance.getX()) && verifyValue(distance.y, targetDistance.getY()) && verifyValue(distance.z, targetDistance.getZ())) {
                 world.setBlockState(target, getBlockValue());
                 setDead();
                 return;
             }
-            final float xSpeed = (float) targetDistance.getX()/ticks;
-            final float ySpeed = (float) targetDistance.getY()/ticks;
-            final float zSpeed = (float) targetDistance.getZ()/ticks;
+            final float xSpeed = (float) targetDistance.getX() / ticks;
+            final float ySpeed = (float) targetDistance.getY() / ticks;
+            final float zSpeed = (float) targetDistance.getZ() / ticks;
             move(MoverType.SELF, xSpeed, ySpeed, zSpeed);
-            distance.set(distance.x+xSpeed, distance.y+ySpeed, distance.z+zSpeed);
+            distance.set(distance.x + xSpeed, distance.y + ySpeed, distance.z + zSpeed);
         }
     }
 
-    protected boolean verifyValue(float value, float max){
+    protected boolean verifyValue(float value, float max) {
         return max < 0 ? value <= max : value >= max;
     }
 
@@ -168,7 +168,7 @@ public class EntityMovingBlock extends Entity {
         return new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
     }
 
-    public boolean ignoreItemEntityData(){
+    public boolean ignoreItemEntityData() {
         return true;
     }
 

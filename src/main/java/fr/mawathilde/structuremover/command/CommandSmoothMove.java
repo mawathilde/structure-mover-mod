@@ -46,12 +46,12 @@ public class CommandSmoothMove extends CommandBase {
             for (int y = blockPos1.getY(); y <= blockPos2.getY(); y++) {
                 for (int x = blockPos1.getX(); x <= blockPos2.getX(); x++) {
                     final BlockPos source = new BlockPos(x, y, z);
-                    if(!world.isBlockLoaded(source)) throw new CommandException("commands.setblock.outOfWorld");
-                    if(world.isAirBlock(source)) continue;
+                    if (!world.isBlockLoaded(source)) throw new CommandException("commands.setblock.outOfWorld");
+                    if (world.isAirBlock(source)) continue;
                     final BlockPos target = source.add(offsetX, offsetY, offsetZ);
                     final IBlockState state = world.getBlockState(source);
                     world.setBlockToAir(source);
-                    final EntityMovingBlock entityMovingBlock = new EntityMovingBlock(world, source.getX()+0.5, source.getY(), source.getZ()+0.5, state, source, target, ticks);
+                    final EntityMovingBlock entityMovingBlock = new EntityMovingBlock(world, source.getX() + 0.5, source.getY(), source.getZ() + 0.5, state, source, target, ticks);
                     world.spawnEntity(entityMovingBlock);
                     blocksNumber++;
                 }

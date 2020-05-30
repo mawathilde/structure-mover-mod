@@ -17,11 +17,11 @@ public final class EntityInit {
     @GameRegistry.ObjectHolder("moving_block")
     public static EntityEntry MOVING_BLOCK = null;
 
-    public static void register(IForgeRegistry<EntityEntry> registry){
+    public static void register(IForgeRegistry<EntityEntry> registry) {
         registry.register(EntityEntryBuilder.create().id(new ResourceLocation(Reference.MOD_ID, "moving_block"), 0).name("moving_block").entity(EntityMovingBlock.class).tracker(60, 1, true).build());
     }
 
-    public static void registerRenderers(){
+    public static void registerRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(EntityMovingBlock.class, new RenderMovingBlock(Minecraft.getMinecraft().getRenderManager()));
     }
 

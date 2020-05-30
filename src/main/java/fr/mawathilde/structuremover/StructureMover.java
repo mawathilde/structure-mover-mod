@@ -19,23 +19,23 @@ public class StructureMover {
     public static IProxy proxy = null;
 
     @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event){
+    public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new RegistryHandler());
         proxy.preInit(event);
     }
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent event){
+    public void init(FMLInitializationEvent event) {
         proxy.init(event);
     }
 
     @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event){
+    public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
     }
 
     @Mod.EventHandler
-    public void serverStarting(FMLServerStartingEvent event){
+    public void serverStarting(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandSmoothMove());
     }
 
