@@ -1,4 +1,4 @@
-commands.smoothmove.usage=/smoothmove <x1> <y1> <z1> <x2> <y2> <z2> <offsetX> <offsetY> <offsetZ> [<seconds>]
+commands.smoothmove.usage=/smoothmove <x1> <y1> <z1> <x2> <y2> <z2> <offsetX> <offsetY> <offsetZ> [<ticks>]
 commands.smoothmove.success=%s blocks moved
 
 entity.moving_block.name=Moving Block

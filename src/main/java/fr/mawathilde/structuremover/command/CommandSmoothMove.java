@@ -36,7 +36,7 @@ public class CommandSmoothMove extends CommandBase {
         int offsetX = parseInt(args[6]);
         int offsetY = parseInt(args[7]);
         int offsetZ = parseInt(args[8]);
-        int seconds = args.length >= 10 ? parseInt(args[9]) : 1;
+        int ticks = args.length >= 10 ? parseInt(args[9]) : 1;
         sender.setCommandStat(CommandResultStats.Type.AFFECTED_BLOCKS, 0);
         final World world = sender.getEntityWorld();
         BlockPos blockPos1 = new BlockPos(Math.min(pos1.getX(), pos2.getX()), Math.min(pos1.getY(), pos2.getY()), Math.min(pos1.getZ(), pos2.getZ()));
@@ -47,13 +47,12 @@ public class CommandSmoothMove extends CommandBase {
                 for (int x = blockPos1.getX(); x <= blockPos2.getX(); x++) {
                     final BlockPos source = new BlockPos(x, y, z);
                     if(!world.isBlockLoaded(source)) throw new CommandException("commands.setblock.outOfWorld");
-                    if(world.isAirBlock(source)) return;
+                    if(world.isAirBlock(source)) continue;
                     final BlockPos target = source.add(offsetX, offsetY, offsetZ);
                     final IBlockState state = world.getBlockState(source);
                     world.setBlockToAir(source);
-                    final EntityMovingBlock entityMovingBlock = new EntityMovingBlock(world, source.getX()+0.5, source.getY(), source.getZ()+0.5, state);
+                    final EntityMovingBlock entityMovingBlock = new EntityMovingBlock(world, source.getX()+0.5, source.getY(), source.getZ()+0.5, state, source, target, ticks);
                     world.spawnEntity(entityMovingBlock);
-                    //world.setBlockState(target, state);
                     blocksNumber++;
                 }
             }
