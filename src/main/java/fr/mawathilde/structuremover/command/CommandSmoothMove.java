@@ -1,5 +1,6 @@
 package fr.mawathilde.structuremover.command;
 
+import fr.mawathilde.structuremover.entity.EntityMovingBlock;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.command.*;
 import net.minecraft.server.MinecraftServer;
@@ -50,7 +51,9 @@ public class CommandSmoothMove extends CommandBase {
                     final BlockPos target = source.add(offsetX, offsetY, offsetZ);
                     final IBlockState state = world.getBlockState(source);
                     world.setBlockToAir(source);
-                    world.setBlockState(target, state);
+                    final EntityMovingBlock entityMovingBlock = new EntityMovingBlock(world, source.getX()+0.5, source.getY(), source.getZ()+0.5, state);
+                    world.spawnEntity(entityMovingBlock);
+                    //world.setBlockState(target, state);
                     blocksNumber++;
                 }
             }
