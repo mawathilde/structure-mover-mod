@@ -39,6 +39,7 @@ public class EntityMovingBlock extends Entity {
         super(world);
         setSize(1.0F, 1.0F);
         this.isImmuneToFire = true;
+        this.noClip = true;
     }
 
     public EntityMovingBlock(World world, double x, double y, double z, IBlockState state, BlockPos source, BlockPos target, int ticks) {
@@ -110,7 +111,7 @@ public class EntityMovingBlock extends Entity {
             if(targetDistance == null){
                 targetDistance = new Vec3i(target.getX()-source.getX(), target.getY()-source.getY(), target.getZ()-source.getZ());
             }
-            if(distance.x >= targetDistance.getX() && distance.y >= targetDistance.getY() && distance.z >= targetDistance.getZ()){
+            if(verifyValue(distance.x, targetDistance.getX()) && verifyValue(distance.y, targetDistance.getY()) && verifyValue(distance.z, targetDistance.getZ())){
                 world.setBlockState(target, getBlockValue());
                 setDead();
                 return;
@@ -121,6 +122,10 @@ public class EntityMovingBlock extends Entity {
             move(MoverType.SELF, xSpeed, ySpeed, zSpeed);
             distance.set(distance.x+xSpeed, distance.y+ySpeed, distance.z+zSpeed);
         }
+    }
+
+    protected boolean verifyValue(float value, float max){
+        return max < 0 ? value <= max : value >= max;
     }
 
     @Override
