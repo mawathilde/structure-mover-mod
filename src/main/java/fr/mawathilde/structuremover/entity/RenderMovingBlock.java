@@ -36,6 +36,7 @@ public class RenderMovingBlock extends Render<EntityMovingBlock> {
                 this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
                 GlStateManager.pushMatrix();
                 GlStateManager.disableLighting();
+                GlStateManager.enableBlend();
                 Tessellator tessellator = Tessellator.getInstance();
                 BufferBuilder bufferbuilder = tessellator.getBuffer();
 
@@ -53,6 +54,7 @@ public class RenderMovingBlock extends Render<EntityMovingBlock> {
                     GlStateManager.disableOutlineMode();
                     GlStateManager.disableColorMaterial();
                 }
+                GlStateManager.disableBlend();
                 GlStateManager.enableLighting();
                 GlStateManager.popMatrix();
                 super.doRender(entity, x, y, z, entityYaw, partialTicks);
