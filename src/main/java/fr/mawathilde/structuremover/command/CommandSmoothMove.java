@@ -15,12 +15,12 @@ public class CommandSmoothMove extends CommandBase {
 
     @Override
     public String getName() {
-        return "smoothmove";
+        return "sm";
     }
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "commands.smoothmove.usage";
+        return "";
     }
 
     @Override
@@ -30,7 +30,7 @@ public class CommandSmoothMove extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        if (args.length < 9) throw new WrongUsageException("commands.smoothmove.usage");
+        if (args.length < 9) return;
         BlockPos pos1 = parseBlockPos(sender, args, 0, false);
         BlockPos pos2 = parseBlockPos(sender, args, 3, false);
         int offsetX = parseInt(args[6]);
